@@ -6,4 +6,10 @@ do
    ./Execute --Input $i --Output ${i/.csv/.root} --Name `basename ${i/.csv/}`
 done
 
-hadd -f Combined.root Individual/*root
+for i in IndividualHistogram/*csv
+do
+   echo "Running $i"
+   ./ExecuteHistogram --Input $i --Output ${i/.csv/.root} --Name `basename ${i/.csv/}`
+done
+
+hadd -f Combined.root Individual/*root IndividualHistogram/*root
