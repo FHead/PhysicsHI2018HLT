@@ -24,11 +24,11 @@ int main(int argc, char *argv[])
 
    while(in)
    {
-      double x = -1, y, exl, exh, eyl, eyh;
+      double x = -10000, y, exl, exh, eyl, eyh;
 
       in >> x >> y >> exl >> exh >> eyl >> eyh;
 
-      if(x < 0)
+      if(x < -9999)
          continue;
 
       int N = G.GetN();
