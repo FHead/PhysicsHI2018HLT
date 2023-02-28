@@ -35,5 +35,6 @@ ConvertMB: ExecuteGraphToCSV
 	./ExecuteGraphToCSV --Input Original/MB.root --Graph G8 --Output Individual/PbPb5TeV_MB_L1HLT_80100_O.csv
 
 Temp:
-	bash Append.sh X1 Y1 EXL1 EXH1 EYL1 EYH1 Individual/pPb8TeV_HM_L1_115120_O.csv
-	bash Append.sh X2 Y2 EXL2 EXH2 EYL2 EYH2 Individual/pPb8TeV_HM_L1_145150_O.csv
+	bash Append.sh X1 Y1 EXL1 EXH1 EYL1 EYH1 Individual/PbPb5TeV_DoubleMu_L1HLT_0_MC_O.csv
+	bash Append.sh X2 Y2 EXL2 EXH2 EYL2 EYH2 Individual/PbPb5TeV_DoubleMu_L1HLT_0_Data_O.csv
+	bash Append.sh X3 Y3 EXL3 EXH3 EYL3 EYH3 Individual/PbPb5TeV_DoubleMu_L1HLT_0_Ratio_O.csv
