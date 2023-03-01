@@ -59,17 +59,17 @@ Qualifier="Preliminary"
 
 # D0 pp efficiency
 ./Execute \
-   --label "HLT D meson p_{T} #geq 8","HLT D meson p_{T} #geq 15","HLT D meson p_{T} #geq 20" \
+   --label "HLT D meson p_{T} #geq 8 GeV","HLT D meson p_{T} #geq 15 GeV","HLT D meson p_{T} #geq 20 GeV" \
    --file Combined.root \
    --curve pp5TeV_D_HLT_8,pp5TeV_D_HLT_15,pp5TeV_D_HLT_20 \
    --hline 1 \
    --xtitle "p_{T} (D^{0}) (GeV)" --ytitle "HLT Efficiency" --xmin 0 --xmax 50 --ymin 0 --ymax 1.05 \
    --system "pp 5.02 TeV" --qualifier $Qualifier \
-   --legendx 0.55 --legendy 0.15 --output Plots/pp5TeV_D0.pdf
+   --legendx 0.5 --legendy 0.15 --output Plots/pp5TeV_D0.pdf
 
 # D0 PbPb efficiency
 ./Execute \
-   --label "HLT D meson p_{T} #geq 20","HLT D meson p_{T} #geq 40","HLT D meson p_{T} #geq 60" \
+   --label "HLT D meson p_{T} #geq 20 GeV","HLT D meson p_{T} #geq 40 GeV","HLT D meson p_{T} #geq 60 GeV" \
    --file Combined.root \
    --curve PbPb5TeV_D_HLT_20,PbPb5TeV_D_HLT_40,PbPb5TeV_D_HLT_60 \
    --hline 1 \
