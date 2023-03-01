@@ -127,10 +127,10 @@ int main(int argc, char *argv[])
 
    double CanvasW      = 1024;
    double CanvasH      = 768;
-   double LeftMargin   = 0.125;
-   double RightMargin  = 0.10;
-   double TopMargin    = 0.10;
-   double BottomMargin = 0.125;
+   double LeftMargin   = 0.11;
+   double RightMargin  = 0.05;
+   double TopMargin    = 0.05;
+   double BottomMargin = 0.11;
    double RHeight      = 0.20;
    if(DoRatio == false)
       RHeight = 0;
@@ -321,17 +321,17 @@ int main(int argc, char *argv[])
 
    Latex.SetTextAlign(22);
    Latex.SetTextAngle(0);
-   Latex.DrawLatex((PadX0 + PadX1) / 2, PadY0 / 2, XTitle.c_str());
+   Latex.DrawLatex((PadX0 + PadX1) / 2, PadY0 * 0.35, XTitle.c_str());
    
    Latex.SetTextAlign(22);
    Latex.SetTextAngle(90);
-   Latex.DrawLatex(PadX0 / 2, (PadYM + PadY1) / 2, YTitle.c_str());
+   Latex.DrawLatex(PadX0 * 0.35, (PadYM + PadY1) / 2, YTitle.c_str());
 
    if(DoRatio == true)
    {
       Latex.SetTextAlign(22);
       Latex.SetTextAngle(90);
-      Latex.DrawLatex(PadX0 / 2, (PadY0 + PadYM) / 2, RTitle.c_str());
+      Latex.DrawLatex(PadX0 * 0.35, (PadY0 + PadYM) / 2, RTitle.c_str());
    }
 
    if(DoWatermark == true)
