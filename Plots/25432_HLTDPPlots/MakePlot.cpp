@@ -257,7 +257,7 @@ int main(int argc, char *argv[])
          if(HistogramMode == false)
             Legend.AddEntry(&Graphs[i], Labels[i].c_str(), "pl");
          else
-            Legend.AddEntry(&Histograms[i], Labels[i].c_str(), "lf");
+            Legend.AddEntry(&Histograms[i], Labels[i].c_str(), "F");
       }
    }
    if(DoLegend == true)

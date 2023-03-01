@@ -15,4 +15,5 @@ Execute: MakePlot.cpp
 	CompileRootMacro MakePlot.cpp Execute
 
 Deploy:
-	cp Plots/*pdf ~/WindowsHome/Dropbox/Temp/Meow2/
+	# cp Plots/*pdf ~/WindowsHome/Dropbox/Temp/Meow2/
+	cp Plots/*pdf ~/Dropbox/Temp/Meow2/

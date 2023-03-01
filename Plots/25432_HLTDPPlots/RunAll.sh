@@ -154,21 +154,21 @@ Qualifier="Preliminary"
    --histogram true \
    --xtitle "M_{#mu#mu} (GeV)" --ytitle "Events/GeV" --xmin 2 --xmax 199 --ymin 0.1 --ymax 300000 \
    --logx true --logy true \
-   --system "PbPb 5.02 TeV (2015)" --qualifer $Qualifier \
-   --text 0.07,0.92,"J/#psi",0.275,0.83,"#Upsilon(1&comma;2&comma;3S)",0.82,0.54,"Z",0.5,0.9,"Trigger selecton:",0.10,0.10,"p_{T}^{#mu} > 4 GeV" \
+   --system "PbPb 5.02 TeV (2015)" --qualifier $Qualifier \
+   --text 0.07,0.92,"J/#psi",0.275,0.83,"#varUpsilon(1&comma;2&comma;3S)",0.82,0.54,"Z",0.5,0.9,"Trigger selecton:",0.10,0.10,"p_{T}^{#mu} > 4 GeV" \
    --legendx 0.5 --legendy 0.8 --output Plots/PbPb5TeV_MMuMu_2015.pdf
 
 # Yellow plots 2018
 ./Execute \
-   --label "L1 double muon inclusive","J/#psi region","#Upsilon + high masses" \
+   --label "L1 double muon inclusive","J/#psi region","#varUpsilon + high masses" \
    --file Combined.root \
    --curve PbPb5TeV_2018_L1DoubleMu_Spectrum_O,PbPb5TeV_2018_JPsi_Spectrum_O,PbPb5TeV_2018_UpsilonZ_Spectrum_O \
    --color -2,-3,-1 \
    --histogram true \
    --xtitle "M_{#mu#mu} (GeV)" --ytitle "Events/GeV" --xmin 0.5 --xmax 199 --ymin 0.1 --ymax 80000000 \
    --logx true --logy true \
-   --system "PbPb 5.02 TeV (2018)" --qualifer $Qualifier \
-   --text 0.28,0.7,"J/#psi",0.43,0.64,"#Upsilon(1&comma;2&comma;3S)",0.86,0.43,"Z",0.27,0.91,"Trigger selecton:",0.10,0.10,"p_{T}^{#mu} > 4 GeV" \
+   --system "PbPb 5.02 TeV (2018)" --qualifier $Qualifier \
+   --text 0.28,0.7,"J/#psi",0.43,0.64,"#varUpsilon(1&comma;2&comma;3S)",0.86,0.43,"Z",0.27,0.91,"Trigger selecton:",0.10,0.10,"p_{T}^{#mu} > 4 GeV" \
    --legendx 0.52 --legendy 0.73 --output Plots/PbPb5TeV_MMuMu_2018.pdf
 
 
