@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
    vector<string> Labels       = CL.GetStringVector("label");
    vector<string> FileNames    = CL.GetStringVector("file");
    vector<string> Curves       = CL.GetStringVector("curve");
+   bool HistogramMode          = CL.GetBool("histogram", false);
    string OutputFileName       = CL.Get("output");
    string XTitle               = CL.Get("xtitle", "");
    string YTitle               = CL.Get("ytitle", "");
@@ -65,6 +66,12 @@ int main(int argc, char *argv[])
    bool DoWatermark            = CL.GetBool("watermark", true);
    string Qualifier            = CL.Get("qualifier", "");
    string System               = CL.Get("system", "");
+
+   if(HistogramMode == true && DoRatio == true)
+   {
+      cout << "Note: histogram mode is true, setting ratio to false" << endl;
+      DoRatio = false;
+   }
 
    string OutputBase = FindBase(OutputFileName);
 
@@ -99,10 +106,14 @@ int main(int argc, char *argv[])
       Markers.insert(Markers.end(), N - Markers.size(), 20);
 
    vector<TGraphAsymmErrors> Graphs(N);
+   vector<TH2D> Histograms(N);
    for(int i = 0; i < N; i++)
    {
       TFile File(FileNames[i].c_str());
-      Graphs[i] = *(TGraphAsymmErrors *)File.Get(Curves[i].c_str());
+      if(HistogramMode == false)
+         Graphs[i] = *(TGraphAsymmErrors *)File.Get(Curves[i].c_str());
+      else
+         Histograms[i] = *(TH2D *)File.Get(Curves[i].c_str());
       File.Close();
    }
    
@@ -116,10 +127,10 @@ int main(int argc, char *argv[])
 
    double CanvasW      = 1024;
    double CanvasH      = 768;
-   double LeftMargin   = 0.125;
-   double RightMargin  = 0.10;
-   double TopMargin    = 0.10;
-   double BottomMargin = 0.125;
+   double LeftMargin   = 0.11;
+   double RightMargin  = 0.05;
+   double TopMargin    = 0.05;
+   double BottomMargin = 0.11;
    double RHeight      = 0.20;
    if(DoRatio == false)
       RHeight = 0;
@@ -211,13 +222,23 @@ int main(int argc, char *argv[])
 
    for(int i = 0; i < N; i++)
    {
-      Graphs[i].SetMarkerColor(Colors[i]);
-      Graphs[i].SetMarkerStyle(Markers[i]);
-      Graphs[i].SetMarkerSize(1.5 - i * 0.04);
-      Graphs[i].SetLineColor(Colors[i]);
-      Graphs[i].SetLineWidth(2);
-      if(Graphs[i].GetN() > 0)
-         Graphs[i].Draw("p");
+      if(HistogramMode == false)
+      {
+         Graphs[i].SetMarkerColor(Colors[i]);
+         Graphs[i].SetMarkerStyle(Markers[i]);
+         Graphs[i].SetMarkerSize(1.5 - i * 0.04);
+         Graphs[i].SetLineColor(Colors[i]);
+         Graphs[i].SetLineWidth(2);
+         if(Graphs[i].GetN() > 0)
+            Graphs[i].Draw("p");
+      }
+      else
+      {
+         Histograms[i].SetLineColor(Colors[i]);
+         Histograms[i].SetLineWidth(2);
+         Histograms[i].SetFillColorAlpha(Colors[i], 0.25);
+         Histograms[i].Draw("same");
+      }
    }
 
    int LegendCount = 0;
@@ -230,8 +251,15 @@ int main(int argc, char *argv[])
    Legend.SetBorderSize(0);
    Legend.SetFillStyle(0);
    for(int i = 0; i < N; i++)
+   {
       if(Labels[i] != "NONE")
-         Legend.AddEntry(&Graphs[i], Labels[i].c_str(), "pl");
+      {
+         if(HistogramMode == false)
+            Legend.AddEntry(&Graphs[i], Labels[i].c_str(), "pl");
+         else
+            Legend.AddEntry(&Histograms[i], Labels[i].c_str(), "F");
+      }
+   }
    if(DoLegend == true)
       Legend.Draw();
 
@@ -260,6 +288,7 @@ int main(int argc, char *argv[])
    if(DoRatio == true)
    {
       RatioPad.cd();
+      RatioPad.SetLogx(LogX);
       HWorldR.Draw();
 
       for(int i = 0; i < NR; i++)
@@ -292,17 +321,17 @@ int main(int argc, char *argv[])
 
    Latex.SetTextAlign(22);
    Latex.SetTextAngle(0);
-   Latex.DrawLatex((PadX0 + PadX1) / 2, PadY0 / 2, XTitle.c_str());
+   Latex.DrawLatex((PadX0 + PadX1) / 2, PadY0 * 0.35, XTitle.c_str());
    
    Latex.SetTextAlign(22);
    Latex.SetTextAngle(90);
-   Latex.DrawLatex(PadX0 / 2, (PadYM + PadY1) / 2, YTitle.c_str());
+   Latex.DrawLatex(PadX0 * 0.35, (PadYM + PadY1) / 2, YTitle.c_str());
 
    if(DoRatio == true)
    {
       Latex.SetTextAlign(22);
       Latex.SetTextAngle(90);
-      Latex.DrawLatex(PadX0 / 2, (PadY0 + PadYM) / 2, RTitle.c_str());
+      Latex.DrawLatex(PadX0 * 0.35, (PadY0 + PadYM) / 2, RTitle.c_str());
    }
 
    if(DoWatermark == true)
@@ -342,7 +371,7 @@ void SetAxis(TGaxis &A)
    A.SetTitleFont(42);
    A.SetTitleSize(0.035);
    A.SetMaxDigits(6);
-   A.SetMoreLogLabels();
+   // A.SetMoreLogLabels();
    // A.SetNoExponent();
    A.Draw();
 }
